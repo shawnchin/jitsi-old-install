@@ -55,7 +55,7 @@
   </div>
   <div>
     <small class="text-muted">
-      &#9888;&#65039; This is not a Jitsi install guide. It merely shows an alternative to one of the many steps
+      &#9995; This is not a Jitsi install guide. It merely shows an alternative to one of the many steps
       required.
       See
       <a href="https://jitsi.github.io/handbook/docs/devops-guide/devops-guide-quickstart">the devops guide in the Jitsi
@@ -147,7 +147,18 @@
       cmdParts.push(`${spacer}${depName}==${depVersion}`);
     }
 
-    return cmdParts.join(' \\\n');
+    const jitsiInstallCommand = cmdParts.join(' \\\n');
+
+    // infer jitsi-meet-tokens version from jitsi-meet-web
+    const jitsiMeetWebVersion = depMap[version]['deps']['jitsi-meet-web']
+    const extraInstallCommands = (jitsiMeetWebVersion ? [
+      '',
+      '',
+      '# For JWT auth support',
+      `apt-get install -y jitsi-meet-tokens=${jitsiMeetWebVersion}`
+    ] : []).join('\n');
+
+    return jitsiInstallCommand + extraInstallCommands;
   }
 
 </script>
