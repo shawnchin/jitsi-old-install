@@ -140,11 +140,11 @@
     ];
 
     for (const [depName, depVersion] of Object.entries(depMap[version]['deps'])) {
-      cmdParts.push(`${spacer}${depName}==${depVersion}`);
+      cmdParts.push(`${spacer}${depName}=${depVersion}`);
     }
 
     for (const [depName, depVersion] of Object.entries(depMap[version]['recommends'])) {
-      cmdParts.push(`${spacer}${depName}==${depVersion}`);
+      cmdParts.push(`${spacer}${depName}=${depVersion}`);
     }
 
     const jitsiInstallCommand = cmdParts.join(' \\\n');
